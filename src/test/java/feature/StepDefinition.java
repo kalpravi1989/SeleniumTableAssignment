@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.aventstack.extentreports.ExtentTest;
-
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import junit.framework.Assert;
@@ -16,7 +14,7 @@ public class StepDefinition {
 
 	private WebDriver driver = Hooks.driver;
 
-	public ExtentTest logger = Hooks.logger;
+
 	List<WebElement> colourColumn;
 	List<WebElement> weightColumn;
 	List<WebElement> starwarsTableColumn;
@@ -27,6 +25,7 @@ public class StepDefinition {
 
 		colourColumn = driver.findElements(
 				By.xpath("//th[text()='Bear Name']//parent::tr//parent::thead//parent::table//tbody/tr/td[2]"));
+
 
 	}
 
@@ -51,10 +50,13 @@ public class StepDefinition {
 			String s = e.getText().replaceAll("[a-zA-z .]", "");
 			System.out.println(s);
 			int weight = Integer.valueOf(s);
+			Assert.assertTrue(weight <= 15);
+
 			if (weight <= 15) {
+				System.out.println("weight is less than 151b");
 
 			} else {
-				System.out.println("not less than 15lb");
+				System.out.println("weight not less than 15lb");
 			}
 		}
 	}
@@ -69,8 +71,11 @@ public class StepDefinition {
 	public void assert_that_number_of_rows_is_equals_to(int arg1) throws Throwable {
 		int size = starwarsTableColumn.size();
 		System.out.println(size);
+		Assert.assertTrue(size == 2);
 		if (size == 2) {
-
+			System.out.println("number of row is 2");
+		} else {
+			System.out.println("number of row is not 2");
 		}
 	}
 
@@ -87,8 +92,11 @@ public class StepDefinition {
 			String s = e.getText();
 			int desLen = s.length();
 			System.out.println(desLen);
+			Assert.assertTrue(desLen <= 350);
 			if (desLen <= 350) {
-
+				System.out.println("number of character is less than 350");
+			} else {
+				System.out.println("number of character is greater than 350");
 			}
 		}
 	}
